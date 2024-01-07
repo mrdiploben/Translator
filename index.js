@@ -7,10 +7,8 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const client = new Discord.Client({ intents: ["GUILDS", "GUILD_MESSAGES"] });
-const TOKEN = 'MTE5MzI4NTA2NTI1MDE4MTIxMA.GWxnl5.Ajh_ve_JPqzgUdtmdGwklsFPrs3sBMamYSMwgA';
-const channelId = '1185549868995977238';
+const TOKEN = process.env['TOKEN']
 
-// Load or create configuration file
 let config = {};
 const configFile = 'config.json';
 if (fs.existsSync(configFile)) {
@@ -135,12 +133,10 @@ client.on('messageCreate', async (message) => {
   }
 
   if (command === 'setchannel') {
-    // Check if the user has the necessary permissions (e.g., manage server)
     if (!message.member.permissions.has('MANAGE_GUILD')) {
       return message.reply('You do not have permission to use this command.');
     }
 
-    // Get the mentioned channel
     const mentionedChannel = message.mentions.channels.first();
     if (!mentionedChannel) {
       return message.reply('Please mention a valid channel.');
